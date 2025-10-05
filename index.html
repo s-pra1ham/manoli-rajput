@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Manoli Rajput — Business Analyst</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif
+        }
+
+        .card-shadow {
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            position: relative;
+            background: linear-gradient(to bottom right, #ffffff, #fafafa);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(226, 232, 240, 0.7)
+        }
+
+        .card-shadow:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            border-color: rgba(99, 102, 241, 0.4)
+        }
+
+        .card-glow {
+            position: relative;
+            overflow: hidden
+        }
+
+        .card-glow::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            transform: translate(-50%, -50%) rotate(30deg)
+        }
+
+        .card-glow:hover::after {
+            opacity: 1
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0
+            }
+
+            100% {
+                background-position: 1000px 0
+            }
+        }
+
+        .glass-effect {
+            backdrop-filter: blur(8px);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden
+        }
+
+        .glass-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+            pointer-events: none
+        }
+
+        .glass-effect:hover::before {
+            left: 100%
+        }
+
+        .profile-frame {
+            position: relative;
+            padding: 4px;
+            border-radius: 9999px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: inline-block;
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            animation: pulse 3s infinite
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4)
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(102, 126, 234, 0)
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0)
+            }
+        }
+
+        .profile-photo {
+            display: block;
+            width: 250px;
+            height: 300px;
+            border-radius: 9999px;
+            object-fit: cover;
+            border: 8px solid white;
+            box-shadow: 0 8px 24px rgba(16, 24, 40, 0.12)
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(8px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp .45s ease-out
+        }
+
+        #modalContent::-webkit-scrollbar {
+            width: 10px
+        }
+
+        #modalContent::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.08);
+            border-radius: 6px
+        }
+
+        /* small responsive tweaks */
+        @media (max-width:420px) {
+            .profile-photo {
+                width: 200px;
+                height: 250px;
+                border-width: 6px
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto max-w-5xl px-6 py-16">
+        <div class="bg-white rounded-3xl card-shadow overflow-hidden animate-in">
+            <div class="p-10 md:p-16">
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-12">
+                    <!-- Photo -->
+                    <div class="flex-shrink-0">
+                        <div class="profile-frame">
+                            <!-- Replace src with real photo if available -->
+                            <img class="profile-photo" src="pfp.jpeg" alt="Manoli Rajput">
+                        </div>
+                    </div>
+
+                    <!-- Info -->
+                    <div class="flex-grow text-center md:text-left">
+                        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-1">Manoli Rajput</h1>
+                        <h2 class="text-indigo-600 font-medium text-lg md:text-xl mb-3">Business Analyst</h2>
+                        <p class="text-gray-600 leading-relaxed mb-6 max-w-2xl">
+                            Final-year PGDM student specializing in Business Analytics & Finance at ST Kabir Institute
+                            of Professional Studies. Recognized for analytical rigor, financial acumen, and a
+                            collaborative approach to solving complex business challenges.
+                        </p>
+
+                        <div class="flex flex-wrap gap-4 justify-center md:justify-start text-sm text-gray-600">
+                            <div class="flex items-center gap-2">
+                                <!-- profile / role icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+                                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                    stroke-linejoin="round" viewBox="0 0 24 24">
+                                    <path d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5z" />
+                                    <path d="M4 20c0-3.866 3.582-7 8-7s8 3.134 8 7" />
+                                </svg>
+                                <span>Ahmedabad, Gujarat</span>
+                            </div>
+
+                            <div class="flex items-center gap-2">
+                                <!-- mail icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+                                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                    stroke-linejoin="round" viewBox="0 0 24 24">
+                                    <path d="M3 8l9 6 9-6" />
+                                    <rect x="3" y="5" width="18" height="14" rx="2" />
+                                </svg>
+                                <span>rajputmanoli21@gmail.com</span>
+                            </div>
+
+                            <div class="flex items-center gap-2">
+                                <!-- briefcase / specialization icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+                                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                    stroke-linejoin="round" viewBox="0 0 24 24">
+                                    <path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2" />
+                                    <rect x="2" y="7" width="20" height="14" rx="2" />
+                                </svg>
+                                <span>Business Analytics & Finance</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-14">
+                    <button onclick="openModal('competencies')"
+                        class="group bg-white border border-gray-200 rounded-xl p-6 hover:border-indigo-500 hover:shadow-lg hover:scale-105 hover:-translate-y-1 transition-all duration-300 card-glow relative overflow-hidden">
+                        <div class="flex flex-col items-center">
+                            <!-- shield/check icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-2 text-indigo-600" fill="none"
+                                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                                viewBox="0 0 24 24">
+                                <path d="M12 2l7 4v6c0 5-3 9-7 10-4-1-7-5-7-10V6l7-4z" />
+                                <path d="M9.5 12.5l2 2 4-4" />
+                            </svg>
+                            <span class="text-sm text-gray-700 group-hover:text-indigo-600">Core Competencies</span>
+                        </div>
+                    </button>
+
+                    <button onclick="openModal('experience')"
+                        class="group bg-white border border-gray-200 rounded-lg p-4 hover:border-indigo-500 hover:shadow transition">
+                        <div class="flex flex-col items-center">
+                            <!-- briefcase icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-2 text-indigo-600" fill="none"
+                                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                                viewBox="0 0 24 24">
+                                <rect x="2" y="7" width="20" height="14" rx="2" />
+                                <path d="M16 3v4H8V3" />
+                            </svg>
+                            <span class="text-sm text-gray-700 group-hover:text-indigo-600">Professional
+                                Experience</span>
+                        </div>
+                    </button>
+
+                    <button onclick="openModal('projects')"
+                        class="group bg-white border border-gray-200 rounded-lg p-4 hover:border-indigo-500 hover:shadow transition">
+                        <div class="flex flex-col items-center">
+                            <!-- layers/projects icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-2 text-indigo-600" fill="none"
+                                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                                viewBox="0 0 24 24">
+                                <path d="M21 16V8l-9-5-9 5v8l9 5 9-5z" />
+                                <path d="M12 7v10" />
+                            </svg>
+                            <span class="text-sm text-gray-700 group-hover:text-indigo-600">Key Projects</span>
+                        </div>
+                    </button>
+
+                    <button onclick="openModal('technical')"
+                        class="group bg-white border border-gray-200 rounded-lg p-4 hover:border-indigo-500 hover:shadow transition">
+                        <div class="flex flex-col items-center">
+                            <!-- code / tools icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-2 text-indigo-600" fill="none"
+                                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                                viewBox="0 0 24 24">
+                                <path d="M16 18l6-6-6-6" />
+                                <path d="M8 6L2 12l6 6" />
+                            </svg>
+                            <span class="text-sm text-gray-700 group-hover:text-indigo-600">Technical Arsenal</span>
+                        </div>
+                    </button>
+
+                    <button onclick="openModal('education')"
+                        class="group bg-white border border-gray-200 rounded-lg p-4 hover:border-indigo-500 hover:shadow transition">
+                        <div class="flex flex-col items-center">
+                            <!-- graduation icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-2 text-indigo-600" fill="none"
+                                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                                viewBox="0 0 24 24">
+                                <path d="M22 10L12 5 2 10l10 5 10-5z" />
+                                <path d="M12 22v-7" />
+                            </svg>
+                            <span class="text-sm text-gray-700 group-hover:text-indigo-600">Educational
+                                Foundation</span>
+                        </div>
+                    </button>
+
+                    <button onclick="openModal('certifications')"
+                        class="group bg-white border border-gray-200 rounded-lg p-4 hover:border-indigo-500 hover:shadow transition">
+                        <div class="flex flex-col items-center">
+                            <!-- award icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-2 text-indigo-600" fill="none"
+                                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                                viewBox="0 0 24 24">
+                                <circle cx="12" cy="8" r="7" />
+                                <path d="M8 21l4-3 4 3" />
+                            </svg>
+                            <span class="text-sm text-gray-700 group-hover:text-indigo-600">Certifications</span>
+                        </div>
+                    </button>
+
+                    <button onclick="openModal('unique')"
+                        class="group bg-white border border-gray-200 rounded-lg p-4 hover:border-indigo-500 hover:shadow transition">
+                        <div class="flex flex-col items-center">
+                            <!-- star / unique -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-2 text-indigo-600" fill="none"
+                                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2l2.9 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 7.1-1.01L12 2z" />
+                            </svg>
+                            <span class="text-sm text-gray-700 group-hover:text-indigo-600">What Sets Me Apart</span>
+                        </div>
+                    </button>
+
+                    <button onclick="openModal('contact')"
+                        class="bg-gradient-to-r from-indigo-600 to-indigo-700 border border-indigo-600 rounded-xl p-6 text-white hover:from-indigo-700 hover:to-indigo-800 hover:scale-105 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 hover:shadow-indigo-100">
+                        <div class="flex flex-col items-center">
+                            <!-- contact/envelope -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-2 text-white" fill="none"
+                                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                                viewBox="0 0 24 24">
+                                <rect x="2" y="4" width="20" height="16" rx="2" />
+                                <path d="M22 8l-10 6L2 8" />
+                            </svg>
+                            <span class="text-sm font-medium">Contact Me</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div
+                class="bg-gradient-to-r from-gray-50 to-indigo-50/30 border-t border-gray-100 px-8 py-6 backdrop-blur-sm">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-6">
+                        <a href="mailto:rajputmanoli21@gmail.com"
+                            class="text-gray-600 hover:text-indigo-600 transition-all duration-300 hover:scale-110 relative group"
+                            aria-label="Email">
+                            <div
+                                class="absolute -inset-2 bg-indigo-50 rounded-full opacity-0 transform scale-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300">
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 relative" fill="none"
+                                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                                viewBox="0 0 24 24">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                <path d="M22 6l-10 7L2 6" />
+                            </svg>
+                        </a>
+
+                        <a href="https://www.linkedin.com/in/manoli21/" target="_blank" rel="noopener"
+                            class="text-gray-600 hover:text-indigo-600 transition-all duration-300 hover:scale-110 relative group"
+                            aria-label="LinkedIn">
+                            <div
+                                class="absolute -inset-2 bg-indigo-50 rounded-full opacity-0 transform scale-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300">
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 relative" fill="none"
+                                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                                <rect x="2" y="9" width="4" height="12" />
+                                <circle cx="4" cy="4" r="2" />
+                            </svg>
+                        </a>
+
+                        <a href="tel:+917778917399"
+                            class="text-gray-600 hover:text-indigo-600 transition-all duration-300 hover:scale-110 relative group"
+                            aria-label="Phone">
+                            <div
+                                class="absolute -inset-2 bg-indigo-50 rounded-full opacity-0 transform scale-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300">
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 relative" fill="none"
+                                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" />
+                                <path d="M15 7a2 2 0 0 1 2 2" />
+                                <path d="M15 3a6 6 0 0 1 6 6" />
+                            </svg>
+                        </a>
+                    </div>
+
+                    <div class="text-sm text-gray-500">© 2025 Manoli Rajput. All rights reserved.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="fixed inset-0 z-50 hidden" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="modal-backdrop absolute inset-0 bg-black bg-opacity-40 backdrop-blur-sm" onclick="closeModal()">
+        </div>
+        <div class="relative flex items-center justify-center min-h-screen p-4">
+            <div
+                class="bg-white/95 backdrop-blur-md rounded-3xl max-w-3xl w-full max-h-[85vh] overflow-hidden shadow-xl border border-gray-100/50">
+                <div
+                    class="flex items-center justify-between p-8 border-b border-gray-100/50 bg-gradient-to-r from-white to-gray-50/80">
+                    <h3 id="modalTitle"
+                        class="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-indigo-600">
+                    </h3>
+                    <button onclick="closeModal()" aria-label="Close modal" class="text-gray-400 hover:text-gray-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor"
+                            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                            <line x1="18" y1="6" x2="6" y2="18" />
+                            <line x1="6" y1="6" x2="18" y2="18" />
+                        </svg>
+                    </button>
+                </div>
+                <div id="modalContent" class="p-6 overflow-y-auto" style="max-height:calc(85vh - 96px)"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal content populated from provided PDF text
+        const modal = document.getElementById('modal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalContent = document.getElementById('modalContent');
+        let lastFocused = null;
+
+        const content = {
+            competencies: {
+                title: "Core Competencies",
+                html: `
+        <div class="space-y-6 text-gray-700">
+          <div class="p-4 rounded-xl bg-gradient-to-br from-white to-indigo-50/30 border border-gray-100 hover:border-indigo-200 transition-all duration-300 hover:shadow-md">
+          <h4 class="font-semibold text-lg">
+            Data Analytics
+          </h4>
+          <p>Excel, Power BI, Tableau — Transform complex datasets into actionable business intelligence.</p>
+
+          <h4 class="font-semibold text-lg">Financial Acumen</h4>
+          <p>Portfolio Management, Risk Assessment — Strong foundation in investment analysis and financial modelling.</p>
+
+          <h4 class="font-semibold text-lg">Technical Skills</h4>
+          <p>SQL, MySQL, Python — Leverage technology to extract meaningful patterns from data.</p>
+
+          <h4 class="font-semibold text-lg">Business Strategy</h4>
+          <p>Critical Thinking, Communication — Bridge technical insights with strategic business decisions.</p>
+        </div>
+      `
+            },
+
+            experience: {
+                title: "Professional Experience",
+                html: `
+        <div class="space-y-5 text-gray-700">
+          <div>
+            <h4 class="font-semibold text-lg">Gyan Investment Services Limited — Financial Analyst Intern</h4>
+            <p class="text-sm text-gray-500">May – July 2025</p>
+            <ul class="list-disc pl-6 mt-2 space-y-1">
+              <li>Worked directly with client portfolios and investment products.</li>
+              <li>Attended training on insurance and mutual fund products to deepen product knowledge.</li>
+              <li>Managed portfolio data and performed detailed data entry using Excel, improving reporting accuracy by 25%.</li>
+              <li>Assisted in promoting SIP and stock investment schemes through client needs analysis.</li>
+              <li>Participated in client meetings and contributed to personalized investment solutions that received positive feedback.</li>
+            </ul>
+          </div>
+        </div>
+      `
+            },
+
+            projects: {
+                title: "Key Projects",
+                html: `
+        <div class="space-y-5 text-gray-700">
+          <div class="p-4 bg-indigo-50 rounded-lg">
+            <h4 class="font-semibold">Risk-Adjusted Returns Analysis</h4>
+            <p class="text-sm text-gray-600">Objective: Evaluate mutual fund and PMS portfolio performance</p>
+            <p class="mt-2">Methodology: Advanced Excel analysis and statistical modeling to compare investment metrics. Impact: Synthesized findings guided selection strategies for investors; insights influenced curriculum development for practical finance modules.</p>
+          </div>
+
+          <div class="p-4 bg-purple-50 rounded-lg">
+            <h4 class="font-semibold">Consumer Behaviour Analysis — Britannia Dairy Products</h4>
+            <p class="text-sm text-gray-600">Focus: Customer engagement, competitor pricing analysis, and sales strategy optimization</p>
+            <p class="mt-2">Outcome: Delivered actionable insights through consumer surveys that supported brand outreach and new product launches.</p>
+          </div>
+        </div>
+      `
+            },
+
+            technical: {
+                title: "Technical Arsenal",
+                html: `
+        <div class="space-y-4 text-gray-700">
+          <h4 class="font-semibold">Data & Analytics</h4>
+          <ul class="list-disc pl-6 space-y-1">
+            <li>Advanced Microsoft Excel</li>
+            <li>Power BI</li>
+            <li>Tableau BI</li>
+            <li>SQL & MySQL</li>
+            <li>Python (Basic)</li>
+          </ul>
+
+          <h4 class="font-semibold mt-3">Business Tools & Techniques</h4>
+          <ul class="list-disc pl-6 space-y-1">
+            <li>Microsoft Office Suite</li>
+            <li>AI-powered Analytics</li>
+            <li>Statistical Analysis</li>
+            <li>Financial Modeling</li>
+          </ul>
+
+          <h4 class="font-semibold mt-3">Professional Skills</h4>
+          <ul class="list-disc pl-6 space-y-1">
+            <li>Strategic Communication</li>
+            <li>Critical Thinking</li>
+            <li>Time Management</li>
+            <li>Strong Work Ethic</li>
+            <li>Interpersonal Excellence</li>
+          </ul>
+        </div>
+      `
+            },
+
+            education: {
+                title: "Educational Foundation",
+                html: `
+        <div class="space-y-4 text-gray-700">
+          <div class="border-l-4 border-indigo-500 pl-4">
+            <h4 class="font-semibold">PGDM in Business Analytics & Finance</h4>
+            <p class="text-sm text-gray-500">ST Kabir Institute of Professional Studies (SKIPS)</p>
+            <p class="text-sm text-gray-500">Sep 2024 – Present | CGPA: 8.27</p>
+            <p class="mt-2">Specialized program combining analytical rigor with financial expertise.</p>
+          </div>
+
+          <div class="border-l-4 border-purple-500 pl-4">
+            <h4 class="font-semibold">Bachelor of Commerce</h4>
+            <p class="text-sm text-gray-500">Gujarat University</p>
+            <p class="text-sm text-gray-500">Oct 2021 – May 2024 | CGPA: 7.25</p>
+          </div>
+        </div>
+      `
+            },
+
+            certifications: {
+                title: "Certifications & Continuous Learning",
+                html: `
+        <div class="space-y-4 text-gray-700">
+          <h4 class="font-semibold">Certifications</h4>
+          <ul class="list-disc pl-6 space-y-1">
+            <li>Exploratory Data Analysis — Cheetah Community</li>
+            <li>Business Analytics — upGrad</li>
+            <li>Data Analytics using Power BI — Industry program</li>
+          </ul>
+
+          <h4 class="font-semibold mt-3">Continuous Learning</h4>
+          <p>Completed courses and short programs in data science, Power BI and advanced SQL to strengthen practical analytics skills.</p>
+        </div>
+      `
+            },
+
+            unique: {
+                title: "What Sets Me Apart",
+                html: `
+        <div class="space-y-4 text-gray-700">
+          <p class="italic text-gray-700">Learning Agility — Quick to master new tools and methodologies, demonstrated through diverse certifications and rapid skill acquisition.</p>
+          <p class="italic text-gray-700">Practical Application — Proven ability to apply analytics to real business challenges through internships and projects.</p>
+          <p class="italic text-gray-700">Client-Centric Approach — Translate complex data insights into clear, actionable recommendations.</p>
+          <p class="italic text-gray-700">Collaborative Mindset — Thrive in team environments and contribute analytical expertise while learning from others.</p>
+        </div>
+      `
+            },
+
+            contact: {
+                title: "Let's Connect",
+                html: `
+        <div class="space-y-4 text-gray-700">
+          <p>I am actively seeking opportunities in business analytics, financial analysis, and data-driven decision-making roles. Best ways to reach me are below.</p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <a href="mailto:rajputmanoli21@gmail.com" class="p-4 border border-gray-200 rounded-xl hover:border-indigo-500 hover:shadow-md hover:-translate-y-1 transition-all duration-300 bg-white/80 backdrop-blur-sm group">
+              <div class="font-semibold">Email</div>
+              <div class="text-sm text-gray-600">rajputmanoli21@gmail.com</div>
+            </a>
+
+            <a href="https://www.linkedin.com/in/manoli21/" target="_blank" rel="noopener" class="p-3 border border-gray-200 rounded-lg hover:border-indigo-500">
+              <div class="font-semibold">LinkedIn</div>
+              <div class="text-sm text-gray-600">linkedin.com/in/manoli21</div>
+            </a>
+
+            <a href="tel:+917778917399" class="p-3 border border-gray-200 rounded-lg hover:border-indigo-500">
+              <div class="font-semibold">Phone</div>
+              <div class="text-sm text-gray-600">+91 77789 17399</div>
+            </a>
+          </div>
+
+          <div class="text-sm text-gray-600">Preferred contact: Email / LinkedIn</div>
+        </div>
+      `
+            }
+        };
+
+        function openModal(key) {
+            const d = content[key];
+            if (!d) return;
+            lastFocused = document.activeElement;
+            modalTitle.textContent = d.title;
+            modalContent.innerHTML = d.html;
+            modal.classList.remove('hidden');
+            document.documentElement.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
+            modal.setAttribute('aria-hidden', 'false');
+            setTimeout(() => {
+                const focusable = modal.querySelector('button, a, input, textarea, [tabindex]:not([tabindex="-1"])');
+                if (focusable) focusable.focus();
+            }, 80);
+            document.addEventListener('focus', trapFocus, true);
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            modal.setAttribute('aria-hidden', 'true');
+            document.documentElement.style.overflow = '';
+            document.body.style.overflow = '';
+            if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+            document.removeEventListener('focus', trapFocus, true);
+        }
+
+        // click outside handled by backdrop onclick attribute
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+        });
+
+        function trapFocus(e) {
+            if (!modal.contains(e.target)) {
+                e.stopPropagation();
+                const focusable = modal.querySelector('button, a, input, textarea, [tabindex]:not([tabindex="-1"])');
+                if (focusable) focusable.focus();
+            }
+        }
+
+        // prevent scroll inside modal content with arrow keys accessibility
+        const modalContentEl = document.getElementById('modalContent');
+        modalContentEl.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown') modalContentEl.scrollBy({ top: 60, behavior: 'smooth' });
+            if (e.key === 'ArrowUp') modalContentEl.scrollBy({ top: -60, behavior: 'smooth' });
+        });
+    </script>
+</body>
+
+</html>
